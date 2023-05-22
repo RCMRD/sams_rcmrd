@@ -1,0 +1,161 @@
+{% extends "apps_base.html" %}
+{% load static %}
+{% block title %}SERVIR Application Management System - SAMS - Detail{% endblock %}
+{% block script %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link href="{% static 'app/css/detail.css' %}" rel="stylesheet"/>
+
+    <script>
+        $(window).on('load', function () {
+            // Get all elements with class "profile-container"
+            const profileContainers = document.getElementsByClassName('profile-container');
+
+            console.log(profileContainers.length)
+
+            // Initialize maximum height to 0
+            let maxHeight = 0;
+
+            // Loop through all elements and find the maximum height
+            for (let i = 0; i < profileContainers.length; i++) {
+                const height = profileContainers[i].offsetHeight;
+                if (height > maxHeight) {
+                    maxHeight = height;
+                }
+             }
+
+            // Set the height of all elements to the maximum height
+            for (let i = 0; i < profileContainers.length; i++) {
+                profileContainers[i].style.height = maxHeight + 'px';
+             }
+
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="card">
+
+        <input
+                type="button"
+                value=""
+                class="btn-close btn-close-white pull-right"
+                aria-label="Close"
+                style="position: absolute;right: 10px;top: 10px;"
+                onclick="history.back();"
+        />
+
+        <div class="container-fliud">
+            <div class="wrapper row">
+                <div class="preview col-md-6">
+
+                    <div class="preview-pic tab-content">
+                        <div
+                                class="tab-pane active"
+                                id="pic-1" style="position:relative;">
+                            <div class="qr-code" style="position: absolute;  top: 0; right: 0;">
+                                {{ svg|safe }}
+                            </div>
+                            <img
+                                    src="{{ app.icon.url }}"
+                                    title="{{ app.name }}"
+                                    alt="{{ app.name }}"/>
+                        </div>
+                        <p style="text-align: center;" class="app-button-wrapper">
+                            <a href="{{ app.url }}" class="open-app btn btn-default"
+                               target="_blank">Open App</a>
+                            {% if app.code_repo_url|length > 0 %}
+                                <a href="{{ app.code_repo_url }}" class="open-app btn btn-default"
+                                   target="_blank">View Code</a>
+                            {% endif %}
+                        </p>
+                        <p>
+
+                            {% if app.link_set.count > 0 %}
+                                <div style="margin-top: 20px;">
+                                    <h2 class="product-title">Additional links:</h2>
+
+                                    <ul style="margin: unset; list-style:circle; padding: unset; padding-left: 2rem;">
+                                        {% for links in app.link_set.all %}
+                                            <li class="additional-link-div">
+
+                                                <a href="{{ links.url }}"
+                                                   class="additional-link">{{ links.description }}</a>
+                                            </li>
+
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </p>
+                    </div>
+
+                </div>
+                <div class="details col-md-6">
+                    <div>
+                        <div class="col-md-9">
+                            <div class="service-icons">
+                                <div class="icons">
+                                    {% for servicearea in app.serviceareas.all %}
+                                        <img src="{{ servicearea.icon.url }}" alt="capacity_building"
+                                             style="max-width:40px; display:inline-block"/>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+
+
+                            <h3 class="product-title">{{ app.name }} {% if request.user.is_staff %}
+                                <a href="/admin/app/application/{{ app.pk }}/change/"><i
+                                        class="fa-solid fa-pen-to-square detail-edit"></i></a>{% endif %}</h3>
+                            {% if app.incomplete_info %}
+                                <h3 class="product-title" style="font-size: 100%;">[ Incomplete info available ]</h3>
+                            {% endif %}
+                        </div>
+
+                        <p class="product-description">
+                            {{ app.description|linebreaks }}
+                        </p>
+                        <p style="margin-bottom: 15px; font-size: 18px;">Status: <span style="font-weight:500">
+                        {% if app.active %}
+                            Active
+                        {% else %}
+                            Retired
+                        {% endif %}
+                            @ {{ app.organization }}</span>
+                        </p>
+
+                        <h3 class="product-title">Development Team:</h3>
+
+                        <div class="flex-row">
+                            {% for scientist in app.scientists.all %}
+                                <div class="profile-container">
+                                    <img
+                                            src="{{ scientist.image_url }}"
+                                            class="profile-pic"
+                                            title="{{ scientist.name }}"
+                                            alt="{{ scientist.name }}"/>
+                                    <br/>
+                                    {{ scientist.name }} ({{ scientist.organization }})
+                                </div>
+                            {% endfor %}
+
+                            {% for developer in app.developers.all %}
+                                <div class="profile-container">
+                                    <img
+                                            src="{{ developer.image_url }}"
+                                            alt="{{ developer.name }}"
+                                            title="{{ developer.name }}"
+                                            class="profile-pic"><br/>
+                                    {{ developer.name }} ({{ developer.organization }})
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
