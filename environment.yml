@@ -1,0 +1,13 @@
+name: sams
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - django
+  - pillow
+  - django-allauth
+  - qrcode
+  - pip
+  - pip:
+      - django-import-export
