@@ -170,7 +170,7 @@
                         app_filter="-999,
                                 {% for servicearea in app.serviceareas.all %}{{ servicearea.pk }}{% if not forloop.last %},{% endif %}{% endfor %}"
                         region="-999,
-                                {% for region in app.region.all %}{{ region.pk }}{% if not forloop.last %},{% endif %}{% endfor %}"
+                                {% for project in app.project.all %}{{ project.pk }}{% if not forloop.last %},{% endif %}{% endfor %}"
                         class="gallery-card ember-view">
                     <div class="inner img-wrapper" style="background-image:url({{ app.icon.url }})"
                          title="{{ app.name }}">
