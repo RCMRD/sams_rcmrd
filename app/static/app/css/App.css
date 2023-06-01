@@ -87,13 +87,16 @@ body {
 }
 
 #nav{
-    background: url(/static/app/img/headerbg.jpg) no-repeat;
+    background: url(/static/app/img/blue-montains.jpg) no-repeat;
     background-size: cover;
+    height: 75px;
 }
 
 .navbar,
 .navbar-default {
-    font-size: 1rem;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+    font-weight: bold;
     background-color: #000000;
     z-index: 3000;
     padding: 0.5rem 1rem;
@@ -601,12 +604,14 @@ button.w-100.bread-crumb.active {
 }
 
 footer {
-    background: url("images/footer_bg_aqua.png");
+    /*background: url("images/footer_bg_aqua.png");*/
+    background: url(/static/app/img/blue-montains.jpg) no-repeat;
     background-size: cover;
     color: #ffffff;
     height: 50px;
     position: relative;
 }
+
 
 footer a {
     color: #ffffff;
