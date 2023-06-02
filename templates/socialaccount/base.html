@@ -8,7 +8,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"
     />
-    <title>{% block title %}AppSERV{% endblock %}</title>
+    <title>{% block title %}AppRCMRD{% endblock %}</title>
     <style>
         .flex-wrapper {
             display: flex;
@@ -82,16 +82,16 @@
 
         gtag('js', new Date());
 
-        gtag('config', 'UA-27020636-4');
+        gtag('config', 'G-0CMLDYD5G3');
     </script>
 
 </head>
 <body>
 <header>
-    <nav id="nav" class="navbar navbar-expand-lg navbar-dark">
+    <nav id="nav" class="navbar navbar-expand-lg navbar-light" style="background: white;">
         <div class="container-fluid">
             <a href="{% if page == 'menu-home' %}#home {% else %} / {% endif %}" class="navbar-brand">
-                <img src="{% static 'app/img/logo_climateserv_WithGlobe_white.png' %}" alt="ClimateSERV"/>
+                <img src="{% static 'app/img/rcmrd1.png'  %}" alt="ClimateSERV"/>
             </a>
             <button
                     class="navbar-toggler"
@@ -108,7 +108,7 @@
                 <ul class="navbar-nav mr-auto">
                     <li>
                         <a aria-current="page" id="menu-home" class="nav-link"
-                           href="{% url 'home' %}">SERVIR Applications Inventory</a>
+                           href="{% url 'home' %}">RCMRD Applications Inventory</a>
                     </li>
                 </ul>
                 <div class="navbar-nav">
@@ -151,28 +151,34 @@
 
             </span>
 
-        <div class="d-flex flex-column">
-            <footer id="footer">
-                <div class="climate-copy">
-                    <a href="https://apps.servirglobal.net">AppSERV</a>
-                    {#            <span>© SERVIR Global</span>#}
-                </div>
-                <div class="ml-auto climate-power">
-                    {#            <span>Powered by </span>#}
-                    <a href="https://servirglobal.net">
-                        <img
-                                src="{% static 'app/img/servir_global_full_logo_white.png' %}"
-                                alt="SERVIR Global"
-                                style="margin-left: 8px; max-height: 21px;"
-                        />
-                    </a>
-                </div>
-
-            </footer>
-        </div>
+            <div class="d-flex flex-column">
+                <footer id="footer">
+                    <div class="climate-copy">
+                        <a href="https://servir.rcmrd.org">
+                             <img 
+                                    src="{% static 'app/img/Servir_Logo_Full_Color_Africa_Large1.png' %}"
+                                    alt = "SERVIR E&SA"
+                                    style = "margin-right: 8px; max-height: 35px;"
+                                    background-color = "#ffffff"
+                             />
+                      
+                     </a>
+                        {#            <span>© SERVIR Global</span>#}
+                    </div>
+                    <div class="ml-auto climate-power">
+                        {#            <span>Powered by </span>#}
+                        <a href="https://www.rcmrd.org">
+                            <img
+                                    src="{% static 'app/img/rcmrd1.png' %}"
+                                    alt="RCMRD"
+                                    style="margin-left: 8px; max-height: 35px;"
+                            />
+                        </a>
+                    </div>
+        
+                </footer>
+            </div>
     </div>
-
-
 
 {% endblock %}
 {% block extra_body %}
