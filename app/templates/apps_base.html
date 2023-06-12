@@ -97,13 +97,17 @@
                 <div class="navbar-nav">
 
                     {% if user.is_authenticated %}
-                        <p class="display-name welcome">Welcome, {{ user.username }}</p><p class="display-name separator"> |</p>
-                    <p><a class="nav-link" href="/accounts/logout/">Log Out</a></p>
+                        <p class="display-name welcome">Welcome, {{ user.username }}</p>
+                        <p class="display-name separator"> |</p>
+                        <p><a class="nav-link" href="{% url 'account_logout' %}?next={{ request.path }}">Log Out</a></p>
                     {% else %}
-                        <a class="nav-link" href="{% provider_login_url 'google' %}">Login with Google</a>
-                    {% endif %}
-                    {% if request.user.is_staff %}
-                        <p class="display-name separator">|</p><a class="nav-link" id="menu-help" href="{% url 'admin:index' %}">Admin</a>
+                        <form method="post" action="{% provider_login_url 'google' %}?next={{ request.path }}">
+                            {% csrf_token %}
+                            <div class="customGPlusSignIn" onclick="document.forms[0].submit();">
+                                <span class="nav-link" style="cursor: pointer;">Login with Google</span>
+                            </div>
+
+                        </form>
                     {% endif %}
                      </div>
             </div>
